@@ -6,12 +6,11 @@ var express = require('express'),
 
 
 candies = [
-{id: 1, name: "Chewing Gum" , color: "Red"},
-{id: 2, name: "Pez"         , color: "Green"},
-{id: 3, name: "Marshmallow" , color: "Pink"},
-{id: 4, name: "Candy Stick" , color: "Blue"}
+  {id: 1, name: "Chewing Gum" , color: "Red"},
+  {id: 2, name: "Pez"         , color: "Green"},
+  {id: 3, name: "Marshmallow" , color: "Pink"},
+  {id: 4, name: "Candy Stick" , color: "Blue"}
 ]
-
 
 // http://127.0.0.1:3000/candies
 router.route('/')
@@ -26,8 +25,9 @@ router.route('/')
   });
 
 // Show a Book
-router.route('/:id').get(function(req,res){
+router.route('/:id')
 
+  .get(function(req,res){
     candy = candies.filter(function(element){ return element["id"] == req.params.id })[0]
     res.json(candy)
   })
@@ -47,6 +47,7 @@ router.put('/:id/edit', function(req, res) {
       candies[i] = req.body
     }
   }
+  // res.json(req.body);
   res.format({
     json: function(){ res.json(req.body); }
   });
