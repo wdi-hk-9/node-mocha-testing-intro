@@ -69,6 +69,49 @@ describe("Candies", function(done){
         done()
       })
     })
+  })
 
+  describe("GET /candies/:id", function(){
+    it("should return an object with the right fields", function(done){
+      api.get("/candies/1")
+      .set("Accept", "application/json")
+      .end(function(error, response){
+        expect(response.body).to.have.all.keys('id', 'name', 'color');
+        done()
+      })
+    })
+  })
+
+  describe("DELETE /candies/:id", function(){
+    it("should delete an object and return message", function(done){
+      api.delete("/candies/1")
+      .set("Accept", "application/json")
+      .end(function(error, response){
+        expect(response.body['message']).to.equal('deleted');
+        done()
+      })
+    })
+  })
+
+  describe("PUT /candies/:id", function(){
+    before(function(done){
+      api.put("/candies/2/edit")
+      .set("Accept", "application/json")
+      .send({
+        id:  2,
+        name:  "NEW_NAME",
+        color: "NEW_COLOR"
+      }).end(done)
+    })
+
+    it("should update an object", function(done){
+      api.get("/candies/2")
+      .set("Accept", "application/json")
+      .end(function(error, response){
+        expect(response.body['name']).to.equal('NEW_NAME');
+        expect(response.body['color']).to.equal('NEW_COLOR');
+        done()
+      })
+    })
   })
 })

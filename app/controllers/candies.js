@@ -47,10 +47,10 @@ router.put('/:id/edit', function(req, res) {
       candies[i] = req.body
     }
   }
-  // res.json(req.body);
-  res.format({
-    json: function(){ res.json(req.body); }
-  });
+  res.json(req.body);
+  // res.format({
+  //   json: function(){ res.json(req.body); }
+  // });
 });
 
 
